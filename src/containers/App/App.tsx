@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
+
 /**
  * the App component is the base for routing definition and general providers,
  * please declare routes here that point to components inside the Containers folder
