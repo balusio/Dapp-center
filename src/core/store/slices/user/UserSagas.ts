@@ -28,10 +28,11 @@ const connectUserFunction = async (): Promise<UserState> => {
   };
 };
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* connectUser() {
+export default function* connectUser() {
   try {
-    const user: UserState = yield call(connectUserFunction);
-     yield put({type: "user/connectUser", user});
+    yield takeEvery("user/connectUser", connectUserFunction)
+    // const user: UserState = yield call(connectUserFunction);
+    // yield put({type: "user/connectUser", user});
   } catch (e) {
      yield put({type: "USER_FETCH_FAILED", message: e.message});
   }
