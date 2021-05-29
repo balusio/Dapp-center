@@ -11,10 +11,7 @@ const FullPageContainer = ({ children } : FullPageContainerProps): JSX.Element =
 
   return(
     <>
-      <Navbar className="--no-height"/>
-      <div className="ui container page-container">
-        {children}
-      </div>
+
     </>
   )
 };
