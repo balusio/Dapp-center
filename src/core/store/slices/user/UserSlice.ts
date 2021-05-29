@@ -6,7 +6,7 @@ type Token = {
   balance: string;
 }
 
-interface UserState {
+export interface UserState {
   connected: boolean;
   address: string;
   network: string;
