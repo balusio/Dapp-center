@@ -1,21 +1,32 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import userReducer from './slices/user/UserSlice';
 import createSagaMiddleware from 'redux-saga'
-import UserSaga from './slices/user/UserSagas';
+import connectUser from './sagas/UserSaga';
+import providerReducer from './slices/provider/ProviderSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
-    user: userReducer
+    user: userReducer,
+    provider: providerReducer,
   },
-  middleware: [sagaMiddleware]
+  middleware: [
+    ...getDefaultMiddleware({ 
+      thunk: false,
+      serializableCheck: false,
+    }), 
+    sagaMiddleware
+  ]
 })
-sagaMiddleware.run(UserSaga)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
 
-export default store;
+const createStore = () =>{
+  sagaMiddleware.run(connectUser)
+  return store;
+}
+export default createStore;

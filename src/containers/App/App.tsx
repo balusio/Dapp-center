@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
-import {Navbar} from 'decentraland-ui';
+import Navbar from 'components/NavBar/NavBar';
 
 /**
  * the App component is the base for routing definition and general providers,
@@ -12,7 +12,7 @@ import {Navbar} from 'decentraland-ui';
 const App = (): JSX.Element => {
   return (
     <>
-      <Navbar className="--no-height" />
+      <Navbar />
       <div className="ui container page-container">
         <Switch>
           <Route path="/" component={HomeContainer} />

@@ -5,6 +5,7 @@ module.exports = {
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
+  "testEnvironment": 'jsdom',
   "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
   "moduleFileExtensions": [
     "ts",
@@ -21,5 +22,6 @@ module.exports = {
     "^components/(.*)$": "<rootDir>/src/components/$1",
     "^utils/(.*)$": "<rootDir>/src/utils/$1",
     "^containers/(.*)$": "<rootDir>/src/containers/$1",
+    "^core/(.*)$": "<rootDir>/src/core/$1",
   }
 }
