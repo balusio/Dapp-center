@@ -21,6 +21,9 @@ const EthereumConnector = async () => {
   }
 } 
 
+const GetContract = (tokenAddress: string, provider: Provider) => {
+  return new ethers.Contract(tokenAddress, ERC20ABI.abi, provider.getSigner())
+}
 /**
  * @param tokenAddress token where the ER20 should be
  * @param provider the provider passed 
@@ -29,8 +32,9 @@ const EthereumConnector = async () => {
  */
 const TokenConnector = async (tokenAddress: string, provider: Provider, userAddress: string) => {
   try{
-    const contract = new ethers.Contract(tokenAddress, ERC20ABI.abi, provider)
+    const contract = GetContract(tokenAddress,provider);
     const balanceToken = await contract.balanceOf(userAddress);
+    // const symbol = await contract.symbol(tokenAddress);
     return balanceToken.toNumber()
  
   } catch(error) {
@@ -40,5 +44,6 @@ const TokenConnector = async (tokenAddress: string, provider: Provider, userAddr
 
 export {
   EthereumConnector,
-  TokenConnector
+  TokenConnector,
+  GetContract
 }

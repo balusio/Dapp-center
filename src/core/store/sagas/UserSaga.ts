@@ -1,12 +1,10 @@
-import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { 
   EthereumConnector, 
   TokenConnector,
-  Provider 
+  Provider,
 } from 'core/utils/Ethereum/EthConnector';
-
-const ADDRESS_TOKEN = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+import { ADDRESS_TOKEN } from 'core/constants';
 
 export function* connectUserFunction() {
   const provider: Provider = yield call(EthereumConnector);
@@ -29,6 +27,7 @@ export function* connectUserFunction() {
     console.error('ERROR ACCESS DENIED', error);
   }
 }
+
 
 export function* getUserBalance(provider: Provider, userAddress: string) {
   try{

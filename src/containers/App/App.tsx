@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
+import SwipeTokensContainer from 'containers/SwipeTokensContainer/SwipeTokensContainer';
 import Navbar from 'components/NavBar/NavBar';
 
 /**
@@ -15,6 +16,7 @@ const App = (): JSX.Element => {
       <Navbar />
       <div className="ui container page-container">
         <Switch>
+          <Route path="/swipetokens" component={SwipeTokensContainer} />
           <Route path="/" component={HomeContainer} />
         </Switch>
       </div>

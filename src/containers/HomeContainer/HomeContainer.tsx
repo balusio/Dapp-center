@@ -24,12 +24,10 @@ const HomeContainer = (): JSX.Element => {
               <Button primary onClick={startApp}>Connect</Button>
             ) : (
               <>
-                <h1>Welcome to Decentraland swipe tokens</h1>
-                <Button primary>
-                  <Link to="swipeTokens">
-                    Swipe Tokens
-                  </Link>
-                </Button>
+                <h1>Welcome to swipe tokens center</h1>
+                <Link to="swipeTokens" className="ui primary button">
+                  Swipe Tokens
+                </Link>
               </>
             )
           }
