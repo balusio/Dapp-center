@@ -10,9 +10,9 @@ to test it on local follow the install and basic functionalities of this [token]
 - this project is built with `Node 14.15.4`,Check your Node JS version to be >= 14.15, otherwise you can use [nvm](https://github.com/nvm-sh/nvm), on the root folder you will find a `.nvmrc` file that has the version used, 
 - create a .env file that will get this variables:
 ```
-ADDRESS_TOKEN
-CHAIN_ID
-PORT
+ADDRESS_TOKEN= [the address of the token where you want to test]
+CHAIN_ID= [ the chain id selected from metamask  check [here](https://docs.metamask.io/guide/ethereum-provider.html#chain-ids)]
+PORT= port of the app for dev ( if this fails check the webpack.dev.config.js)
 
 ```
 the Token address and the chain id must be added on the `.env` file this will be read by webpack and disposed on the core/constants.ts file, keep in mind this is the core functionality of the app,
