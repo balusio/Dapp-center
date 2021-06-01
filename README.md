@@ -3,7 +3,7 @@ A simple dapp that connects with ethereum and get tokens balance of your account
 
 ## Getting Started
 
-The Main idea of this project is use Decentraland UI to connect to your Metamask wallet, get a token balance and transfer those token to another account,
+The Main idea of this project is use [Decentraland UI](https://github.com/decentraland/ui) as ui framework to connect to your Metamask wallet, get a token balance and transfer those token to another account,
 to test it on local follow the install and basic functionalities of this [token](https://github.com/decentraland/dummy-token)
 
 ## Setup project
