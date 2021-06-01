@@ -13,7 +13,6 @@ const NavBarComponent = (): JSX.Element => {
     isConnected: user.connected,
     mana: user.token?.balance ? user.token.balance : 0,
     addres: user.address,
-    onClickAccount: () => console.log("Clicked on account menu"),
   };
 
   return (
