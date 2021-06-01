@@ -1,4 +1,4 @@
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import WindowProvider from "core/utils/EthProvider";
 import ERC20ABI from "core/abi/erc20.json";
 

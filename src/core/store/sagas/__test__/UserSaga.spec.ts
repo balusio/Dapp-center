@@ -28,7 +28,7 @@ describe("User Connection Saga", () => {
      * limited by errors on ganache-core and waffle(that use ganache under the hood) providers to mock
      */
     // expect(userConnections.next().done).toEqual(false);
-    //console.log((userConnections.next(MockConnector).value))
+    // console.log((userConnections.next(MockConnector).value))
     // expect(userConnections.next().value).toEqual(MockEthConnector.getChainId)
   });
 });

@@ -1,6 +1,6 @@
 {
   "name": "dappcenter",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Dapp center to connect wallets and interact with tokens",
   "main": "index.js",
   "scripts": {

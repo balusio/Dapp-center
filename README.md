@@ -19,3 +19,18 @@ the Token address and the chain id must be added on the `.env` file this will be
 *NOTE:* the token Address must be a ERC20 address in order to work with the ABI provided.
 
 ## Project Structure
+
+Inside the Src folder you will find: 
+
+- core : Ethereum utils like Contract generator and wallet connection through provider, store and sagas and constanst
+- containers: here will be all wrappers of pages, normally all routes will point to a component under the containers folder
+- components: any adaptation of Decentraland ui components to be manipulated
+- types: types definitions
+
+## Testing
+ All testing must go into the folder of the file inside a `__test__` folder
+
+*NOTE:*
+due to an error with  jest 26 and ganache-core 
+```ganache Right-hand side of 'instanceof' is not callable``` 
+test are not workable
