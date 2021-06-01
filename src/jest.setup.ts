@@ -8,16 +8,16 @@ const MockEthConnector = async () => ({
   }),
 });
 
-jest.mock("core/utils/Ethereum/EthConnector", () =>( {
+jest.mock("core/utils/Ethereum/EthConnector", () => ({
   EthereumConnector: MockEthConnector,
 }));
 
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
-  useSelector: ()=> ({
+  useSelector: () => ({
     user: {
       connected: false,
-    }
+    },
   }),
   useDispatch: jest.fn(),
 }));

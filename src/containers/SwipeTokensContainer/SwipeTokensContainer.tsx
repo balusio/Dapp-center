@@ -91,7 +91,8 @@ const SwipeTokensContainer = (): JSX.Element => {
       <div className="display-with-margin">
         <h1>Transfer tokens</h1>
         <span>
-          You&apos;ve have <Mana inline>{token?.balance}</Mana> tokens Available.
+          You&apos;ve have <Mana inline>{token?.balance}</Mana> tokens
+          Available.
         </span>
         <Field
           label="Amount"

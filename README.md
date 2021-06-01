@@ -14,7 +14,8 @@ to test it on local follow the install and basic functionalities of this [token]
 * PORT= port of the app for dev ( if this fails check the webpack.dev.config.js)
 the Token address and the chain id must be added on the `.env` file this will be read by webpack and disposed on the core/constants.ts file, keep in mind this is the core functionality of the app,
 *NOTE:* the token Address must be a ERC20 address in order to work with the ABI provided.
-
+- Run `npm run install``
+- to start a development mode with webpack dev server just run ```npm run start```
 ## Project Structure
 
 Inside the Src folder you will find: 
@@ -24,8 +25,14 @@ Inside the Src folder you will find:
 - components: any adaptation of Decentraland ui components to be manipulated
 - types: types definitions
 
-## Testing
- All testing must go into the folder of the file inside a `__test__` folder
+
+## Running on local: 
+- Keep in mind you must have the HardHat Dummy token running and add the env variables (explained on Setup Project section), if you want to check the build mode run ```npm run build```, 
+go into the dist folder and you will have the artifact, a simple way to test it is using an http server from python or any server of you choose, the python approach will be : ```python3 -m http.server PORT```
+## Testing, Linting, prettier
+- All testing must go into the folder of the file inside a `__test__` folder,
+- Run `npm run lint` for lin check 
+- Run `npm run prettier-clen` to apply prettier formats
 
 *NOTE:*
 due to an error with  jest 26 and ganache-core 
