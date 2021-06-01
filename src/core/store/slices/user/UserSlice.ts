@@ -13,6 +13,7 @@ export interface UserState {
   token?: Token | null;
   error?: Error | any;
 }
+
 const initialState: UserState = {
   connected: false,
   address: '',
@@ -47,7 +48,6 @@ export const UserSlice = createSlice({
       if(state.token?.balance) {
         state.token.balance = payload;
       }
-     
     },
   }
 })

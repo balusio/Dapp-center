@@ -8,7 +8,6 @@ import {
 import { ADDRESS_TOKEN, CHAIN_ID } from 'core/constants';
 
 export function* connectUserFunction() {
-  console.log("ENTERED IN USER SAGA")
   const provider: Provider = yield call(EthereumConnector);
   
   try{
@@ -21,11 +20,14 @@ export function* connectUserFunction() {
     }
   
     yield put({ type: "user/connectAddress", payload: user });
+
     yield put({ 
-    type: "provider/setProvider", 
-    payload: {
-      provider
-    }});
+      type: "provider/setProvider", 
+      payload: {
+        provider
+      }
+    });
+    
     yield call(getUserBalance, provider, address)
   } catch(error){
     console.error('ERROR ACCESS DENIED', error);

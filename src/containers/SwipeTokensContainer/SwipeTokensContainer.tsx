@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Button, Center, Field, Loader, Mana, Table } from 'decentraland-ui';
+import { Button, Field, Loader, Mana, Table } from 'decentraland-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'core/store/store';
 import { makeTransaction } from 'core/store/slices/transactions/TransactionSlice';
@@ -38,7 +38,8 @@ const SwipeTokensContainer = (): JSX.Element => {
     if(transactions.length > 0) {
       SetisLoading(false)
     }
-  },[transactions])
+  },[transactions]);
+
   const validateForm = () => {
     let isFormValid = true;
     Object.entries(formState).forEach(([key, {value, validate}]) => {
@@ -79,6 +80,7 @@ const SwipeTokensContainer = (): JSX.Element => {
       },
     })
   }
+
   return (
     <div className="ui container page-container">
       <div className="display-with-margin">

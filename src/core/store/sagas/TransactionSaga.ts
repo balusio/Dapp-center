@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects'
+import { put, select, takeEvery } from 'redux-saga/effects'
 import { GetContract, Provider } from 'core/utils/Ethereum/EthConnector';
 import { FormState } from 'containers/SwipeTokensContainer/SwipeTokensContainer';
 import { TransactionResponse, TransactionReceipt } from "@ethersproject/abstract-provider/src.ts/index"
@@ -9,6 +9,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 
 const getProvider = ({ provider }:RootState) => provider.provider;
 const getUserAddress = ({ user }:RootState) => user.address;
+
 export function* makeTransaction({ payload }: PayloadAction<FormState>) {
   try{
     const { to, amount } = payload;
@@ -21,11 +22,12 @@ export function* makeTransaction({ payload }: PayloadAction<FormState>) {
       type: "transactions/addTransaction",
       payload: resultTransfer
     })
-
-    // update balance:
+  
+    // update balance of user
     const userAddress:string = yield select(getUserAddress);
     const balance:BigNumber = yield contract.balanceOf(userAddress);
     const formatBalance = balance.toNumber();
+    
     yield put({
       type: "user/updateBalance",
       payload: formatBalance
@@ -38,7 +40,6 @@ export function* makeTransaction({ payload }: PayloadAction<FormState>) {
           name: "Transaction Error",
           message: `Error on Transaction ${error.message}`,
         }
-       
       }
     });
   }

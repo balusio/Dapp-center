@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Center } from 'decentraland-ui';
 import { useSelector } from 'react-redux';
 import { RootState } from 'core/store/store';

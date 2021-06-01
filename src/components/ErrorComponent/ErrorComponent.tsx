@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Close, Button } from 'decentraland-ui';
+import { Modal, Button } from 'decentraland-ui';
 import { useSelector } from 'react-redux';
 import { RootState } from 'core/store/store';
 
