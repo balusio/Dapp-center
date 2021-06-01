@@ -1,13 +1,16 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
+
 import { 
   EthereumConnector, 
   TokenConnector,
   Provider,
 } from 'core/utils/Ethereum/EthConnector';
-import { ADDRESS_TOKEN } from 'core/constants';
+import { ADDRESS_TOKEN, CHAIN_ID } from 'core/constants';
 
 export function* connectUserFunction() {
+  console.log("ENTERED IN USER SAGA")
   const provider: Provider = yield call(EthereumConnector);
+  
   try{
     const signer = provider.getSigner();
     const address:string = yield signer.getAddress();
@@ -16,6 +19,7 @@ export function* connectUserFunction() {
       address,
       network
     }
+  
     yield put({ type: "user/connectAddress", payload: user });
     yield put({ 
     type: "provider/setProvider", 
@@ -30,6 +34,20 @@ export function* connectUserFunction() {
 
 
 export function* getUserBalance(provider: Provider, userAddress: string) {
+  const network: Provider["network"] = yield provider.getNetwork();
+  if(network.chainId.toString() !== CHAIN_ID){
+    yield put({ 
+      type: "user/setError", 
+      payload: {
+        error: {
+          name: "Network error",
+          message: "Different Networks"
+        }
+       
+      }
+    });
+    return false;
+  }
   try{
     const userBalance: number = yield TokenConnector(ADDRESS_TOKEN, provider, userAddress);
     yield put({ 

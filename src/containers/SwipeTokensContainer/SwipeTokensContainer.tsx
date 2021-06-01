@@ -1,56 +1,138 @@
-import React, { ChangeEvent, useState } from 'react';
-import { Button, Center, Field, Mana } from 'decentraland-ui';
-import { useSelector } from 'react-redux';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { Button, Center, Field, Loader, Mana, Table } from 'decentraland-ui';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'core/store/store';
-import { useDispatch } from 'react-redux';
-import { GetContract } from 'core/utils/Ethereum/EthConnector';
-import { ADDRESS_TOKEN } from 'core/constants';
+import { makeTransaction } from 'core/store/slices/transactions/TransactionSlice';
+
+import './SwipeTokensContainer.scss';
+
+export type InputStatus = {
+  value: string | number;
+  error: boolean;
+  validate: (value: never) => boolean,
+}
+
+export type FormState = {
+  amount: InputStatus;
+  to: InputStatus;
+};
 
 const SwipeTokensContainer = (): JSX.Element => {
-  const {user, provider: { provider: currentProvider} } = useSelector( (state: RootState) => state)
-  const { address : from, token} = user;
-  const [formState, setFormState ] = useState({
-    amount: 0,
-    to: null,
+  const { user: { token }, transactions: { transactions } } = useSelector( (state: RootState) => state);
+  const dispatch = useDispatch();
+  const [isLoading, SetisLoading ] = useState(false);
+  const [formState, setFormState ] = useState<FormState>({
+    amount: {
+      value: 0,
+      error: false,
+      validate: (value: never) => value > 0,
+    },
+    to: {
+      value: '',
+      error: false,
+      validate: (value: never) => value !== ''
+    },
   });
 
-  const startTransacction = async () => {
-    const { to, amount } = formState;
-    if(currentProvider) {
-      const contract = GetContract(ADDRESS_TOKEN, currentProvider);
-      console.log(currentProvider.getSigner())
-      const transfer = await contract.transfer(to, amount);
-      console.log(transfer);
+  useEffect(() => {
+    if(transactions.length > 0) {
+      SetisLoading(false)
     }
-   
+  },[transactions])
+  const validateForm = () => {
+    let isFormValid = true;
+    Object.entries(formState).forEach(([key, {value, validate}]) => {
+      if(!validate(value as never)) {
+        setFormState({
+          ...formState,
+          [key]: {
+            ...formState[key as keyof FormState],
+            error: true,
+          }
+        })
+        isFormValid = false;
+      }
+    });
+
+    return isFormValid;
   }
+
   const transferTokens = () => {
-    startTransacction();
+    // before send the transaction, check that all elements of the form
+    if(validateForm()){
+      SetisLoading(true);
+      dispatch(makeTransaction({
+        to: formState.to,
+        amount: formState.amount
+      }))
+    }   
   }
 
   const setTransferDetails = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormState({
       ...formState,
-      [e.target.name]: e.target.value,
+      [name]:{
+        ...formState[name as keyof FormState],
+        value:  value,
+        error: false
+      },
     })
   }
   return (
-    <>
-      <Center>
-        <h1>
-          Transfer tokens 
-        </h1>
-        <p>
-          You've have <Mana inline>{token?.balance}</Mana> tokens Availables.
-        </p>
-        <Field label="Amount" name="amount" placeholder="1,000" type="number" value={formState.amount} onChange={setTransferDetails} />
-        <Field label="To" name="to" value={formState.to} type="address" onChange={setTransferDetails} />
-        <Button primary onClick={transferTokens}>
+    <div className="ui container page-container">
+      <div className="display-with-margin">
+        <h1>Transfer tokens</h1>
+        <span>
+          You've have <Mana inline>{token?.balance}</Mana> tokens Available.
+        </span>
+        <Field 
+          label="Amount" 
+          name="amount" 
+          placeholder="1,00"
+          type="number" 
+          value={formState.amount.value} 
+          onChange={setTransferDetails} 
+          error={formState.amount.error}
+        />
+        <Field 
+          label="To" 
+          name="to" 
+          value={formState.to.value} 
+          type="address" 
+          onChange={setTransferDetails} 
+          error={formState.to.error}
+        />
+        <Button
+          primary 
+          onClick={transferTokens}
+        >
           Transfer
         </Button>
-      </Center>
-
-    </>
+        <Loader active={isLoading} size="massive" />
+      </div>
+        <Table basic="very">
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>to</Table.HeaderCell>
+              <Table.HeaderCell>Confirmations</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {transactions.map((elem, index) =>(
+              <Table.Row key={`${index} ${new Date().getTime().toString()}`}>
+                <Table.Cell>
+                  {elem.to}
+                </Table.Cell>
+                <Table.Cell>
+                  {elem.confirmations}
+                </Table.Cell>
+              </Table.Row>
+              ))
+            }
+          </Table.Body>
+        </Table>
+    </div>
   );
 };
 

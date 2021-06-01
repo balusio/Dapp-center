@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import SwipeTokensContainer from 'containers/SwipeTokensContainer/SwipeTokensContainer';
 import Navbar from 'components/NavBar/NavBar';
+import ErrorComponent from 'components/ErrorComponent/ErrorComponent';
 
 /**
  * the App component is the base for routing definition and general providers,
@@ -19,6 +20,7 @@ const App = (): JSX.Element => {
           <Route path="/swipetokens" component={SwipeTokensContainer} />
           <Route path="/" component={HomeContainer} />
         </Switch>
+      <ErrorComponent />
       </div>
 
     </>

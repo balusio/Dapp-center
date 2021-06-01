@@ -7,11 +7,11 @@ export type Token = {
 }
 
 export interface UserState {
-  connected: boolean;
-  address: string;
-  network: string;
-  token: Token | null;
-  error: Error | any;
+  connected?: boolean;
+  address?: string;
+  network?: string;
+  token?: Token | null;
+  error?: Error | any;
 }
 const initialState: UserState = {
   connected: false,
@@ -29,10 +29,7 @@ export const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    connectUser: (state) => {
-      // const { address, network, tokens, balance} = payload;
-      console.log("middleware will handle")
-    },
+    connectUser: () => {},
     connectAddress: (state, { payload }: PayloadAction<UserState>) => {
       const { address, network } = payload;
       state.connected = true;
@@ -46,9 +43,15 @@ export const UserSlice = createSlice({
     setError: (state, { payload }: PayloadAction<UserState>) => {
       state.error = payload.error;
     },
+    updateBalance: (state, { payload }: PayloadAction<number>) => {
+      if(state.token?.balance) {
+        state.token.balance = payload;
+      }
+     
+    },
   }
 })
 
-export const { connectUser, connectAddress } = UserSlice.actions
+export const { connectUser, connectAddress, setError } = UserSlice.actions
 
 export default UserSlice.reducer;

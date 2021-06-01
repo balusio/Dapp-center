@@ -21,9 +21,17 @@ const EthereumConnector = async () => {
   }
 } 
 
+/**
+ * abstract basic function that returns a contract based on the parameters
+ */
 const GetContract = (tokenAddress: string, provider: Provider) => {
-  return new ethers.Contract(tokenAddress, ERC20ABI.abi, provider.getSigner())
+  try{
+    return new ethers.Contract(tokenAddress, ERC20ABI.abi, provider.getSigner())
+  } catch(error) {
+    throw new Error(error);
+  }
 }
+
 /**
  * @param tokenAddress token where the ER20 should be
  * @param provider the provider passed 
@@ -34,9 +42,8 @@ const TokenConnector = async (tokenAddress: string, provider: Provider, userAddr
   try{
     const contract = GetContract(tokenAddress,provider);
     const balanceToken = await contract.balanceOf(userAddress);
-    // const symbol = await contract.symbol(tokenAddress);
-    return balanceToken.toNumber()
- 
+    const balance = balanceToken.toNumber()
+    return balance;
   } catch(error) {
     console.error(error)
   }

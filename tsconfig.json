@@ -4,6 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "outDir": "dist",
+    "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,6 +17,6 @@
     "jsx": "react",
     "sourceMap": true
   },
-  "exclude": ["node_modules", "./src/__mocks__", "jest.config.js"],
+  "exclude": ["node_modules/", "./src/__mocks__", "jest.config.js"],
   "include": ["src", "jest","./src/*.ts"]
 }

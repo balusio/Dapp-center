@@ -1,18 +1,14 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
-import connectUser, { connectUserFunction } from '../UserSaga';
 import { EthereumConnector } from 'core/utils/Ethereum/EthConnector';
+import { call, takeEvery } from 'redux-saga/effects'
 
+import connectUser, { connectUserFunction } from '../UserSaga';
 
-const MockEthConnector = async () => ({
+const MockEthConnector = () => ({
   getSigner: () => ({
     getAddress: async () => '0x0000',
     getChainId: async () => '1234'
-  }),
+  })
 });
-
-jest.mock("core/utils/Ethereum/EthConnector", () => () => ({
-  default: MockEthConnector
-}));
 
 describe("User Connection Saga", () => {
 
@@ -21,13 +17,17 @@ describe("User Connection Saga", () => {
     expect(userSaga.next().value).toEqual(takeEvery("user/connectUser", connectUserFunction));
   });
 
-  xit("should check get the metamask Address", () => {
+  it("should check get the metamask Address", () => {
     // Error with mocking the window.ethereum connector inside the saga
     const userConnections = connectUserFunction();
-    console.log(userConnections.next().value, " value");
     // returns a promise but doesnt get executed by the saga
-    expect(userConnections.next().value).toEqual(MockEthConnector);
+    expect(userConnections.next().value).toEqual(call(EthereumConnector));
+    /**
+     * to create a custom provider to test the next values it's 
+     * limited by errors on ganache-core and waffle(that use ganache under the hood) providers to mock
+     */
     // expect(userConnections.next().done).toEqual(false);
+    //console.log((userConnections.next(MockConnector).value))
     // expect(userConnections.next().value).toEqual(MockEthConnector.getChainId)
   });
 });

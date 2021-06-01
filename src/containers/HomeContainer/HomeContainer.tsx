@@ -3,8 +3,9 @@ import { Button, Center } from 'decentraland-ui';
 import { useSelector } from 'react-redux';
 import { RootState } from 'core/store/store';
 import { useDispatch } from 'react-redux';
-import { connectUser } from 'core/store/slices/user/UserSlice';
+import { connectUser, setError } from 'core/store/slices/user/UserSlice';
 import { Link } from 'react-router-dom';
+
 const HomeContainer = (): JSX.Element => {
   const user = useSelector( (state: RootState) => state.user)
   const dispatch = useDispatch();
@@ -12,6 +13,10 @@ const HomeContainer = (): JSX.Element => {
   const startApp = () => {
     if(typeof window.ethereum !== 'undefined') {
       dispatch(connectUser());
+    } else {
+      dispatch(setError({
+        error: new Error('Metamask is not connected')
+      }));
     }
   }
   

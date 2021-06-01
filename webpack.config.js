@@ -16,7 +16,7 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
     historyApiFallback: true,
     compress: true,
-    port: 4000,
+    port: process.env.PORT | 4200,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

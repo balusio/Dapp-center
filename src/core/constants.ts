@@ -1,1 +1,2 @@
-export const ADDRESS_TOKEN = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+export const ADDRESS_TOKEN = process.env.ADDRESS_TOKEN as string;
+export const CHAIN_ID = process.env.CHAIN_ID as string;
