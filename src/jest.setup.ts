@@ -8,11 +8,19 @@ const MockEthConnector = async () => ({
   }),
 });
 
-jest.mock("core/utils/Ethereum/EthConnector", () => {
-  return {
-    EthereumConnector: MockEthConnector,
-  };
-});
+jest.mock("core/utils/Ethereum/EthConnector", () =>( {
+  EthereumConnector: MockEthConnector,
+}));
+
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: ()=> ({
+    user: {
+      connected: false,
+    }
+  }),
+  useDispatch: jest.fn(),
+}));
 
 // ganache -core has problems with transpile on jsdom and node
 // jest.mock("core/utils/EthProvider", () => {
