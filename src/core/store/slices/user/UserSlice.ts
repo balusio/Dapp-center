@@ -1,10 +1,14 @@
-import { createSlice, CreateSliceOptions, PayloadAction } from "@reduxjs/toolkit"
+import {
+  createSlice,
+  CreateSliceOptions,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 
 export type Token = {
   name: string;
   address: string;
   balance: number;
-}
+};
 
 export interface UserState {
   connected?: boolean;
@@ -16,18 +20,18 @@ export interface UserState {
 
 const initialState: UserState = {
   connected: false,
-  address: '',
-  network: '',
+  address: "",
+  network: "",
   token: null,
   error: null,
 };
 
 /**
- * Slices are based on standard redux patterns 
+ * Slices are based on standard redux patterns
  * @see https://redux.js.org/tutorials/fundamentals/part-7-standard-patterns
  */
 export const UserSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     connectUser: () => {},
@@ -45,13 +49,13 @@ export const UserSlice = createSlice({
       state.error = payload.error;
     },
     updateBalance: (state, { payload }: PayloadAction<number>) => {
-      if(state.token?.balance) {
+      if (state.token?.balance) {
         state.token.balance = payload;
       }
     },
-  }
-})
+  },
+});
 
-export const { connectUser, connectAddress, setError } = UserSlice.actions
+export const { connectUser, connectAddress, setError } = UserSlice.actions;
 
 export default UserSlice.reducer;

@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb-typescript'],
+  extends: ['airbnb-typescript', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: { jsx: true },
@@ -14,11 +14,12 @@ module.exports = {
     "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-one-expression-per-line": 0, 
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}],
+    "import/no-extraneous-dependencies": ["warn", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": true}],
     "react/no-unused-prop-types": 0,
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'react/button-has-type' : 0,
+    'import/no-cycle': 0,
   },
   settings: {
     "import/parsers": {
